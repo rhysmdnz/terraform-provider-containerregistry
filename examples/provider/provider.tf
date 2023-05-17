@@ -1,3 +1,3 @@
-provider "scaffolding" {
+provider "containerregistry" {
   # example configuration here
 }
