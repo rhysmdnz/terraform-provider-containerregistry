@@ -26,9 +26,7 @@ func init() {
 func New(version string) func() *schema.Provider {
 	return func() *schema.Provider {
 		p := &schema.Provider{
-			DataSourcesMap: map[string]*schema.Resource{
-				"containerregistry_data_source": dataSourceScaffolding(),
-			},
+			DataSourcesMap: map[string]*schema.Resource{},
 			ResourcesMap: map[string]*schema.Resource{
 				"containerregistry_resource": resourceContainerregistry(),
 			},
