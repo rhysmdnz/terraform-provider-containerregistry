@@ -24,5 +24,3 @@ Sample resource in the Terraform provider containerregistry.
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-
