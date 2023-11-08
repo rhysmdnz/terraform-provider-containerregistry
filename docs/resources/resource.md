@@ -18,8 +18,11 @@ Sample resource in the Terraform provider containerregistry.
 ### Required
 
 - `image_tarball` (String) Image tarball thing.
-- `image_tarball_hash` (String) Hash of the image tarball.
 - `remote_tag` (String) The tag to save the image to.
+
+### Optional
+
+- `image_tarball_hash` (String) Hash of the image tarball.
 
 ### Read-Only
 

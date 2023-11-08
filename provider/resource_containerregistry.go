@@ -34,7 +34,8 @@ func resourceContainerregistry() *schema.Resource {
 				// This description is used by the documentation generator and the language server.
 				Description: "Hash of the image tarball.",
 				Type:        schema.TypeString,
-				Required:    true,
+				Required:    false,
+				Optional:    true,
 				ForceNew:    true,
 			},
 			"remote_tag": {
