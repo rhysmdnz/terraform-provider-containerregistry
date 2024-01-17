@@ -3,7 +3,7 @@ module github.com/rhysmdnz/terraform-provider-containerregistry
 go 1.18
 
 require (
-	github.com/google/go-containerregistry v0.16.1
+	github.com/google/go-containerregistry v0.18.0
 	github.com/hashicorp/terraform-plugin-docs v0.16.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.29.0
