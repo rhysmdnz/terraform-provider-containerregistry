@@ -30,15 +30,12 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: true
-        id: go
-
-      - name: Get dependencies
-        run: |
-          go mod download
-
-      - name: Build
-        run: |
-          go build -v .
+      - run: go mod download
+      - run: go build -v .
+      - name: Run linters
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
 
   generate:
     runs-on: ubuntu-latest
@@ -48,6 +45,10 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: true
+      # We need the latest version of Terraform for our documentation generation to use
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
       - run: go generate ./...
       - name: git diff
         run: |
