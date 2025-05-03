@@ -6,4 +6,3 @@
   "rebaseWhen": "behind-base-branch",
   "lockFileMaintenance": { "enabled": true }
 }
-}
