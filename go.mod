@@ -2,7 +2,7 @@ module github.com/rhysmdnz/terraform-provider-containerregistry
 
 go 1.24.0
 
-toolchain go1.24.5
+toolchain go1.24.6
 
 require (
 	github.com/google/go-containerregistry v0.20.6
