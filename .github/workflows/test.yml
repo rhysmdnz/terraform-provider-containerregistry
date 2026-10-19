@@ -1,15 +1,11 @@
 # Terraform Provider testing workflow.
 name: Tests
 
-# This GitHub action runs your tests for each pull request and push.
-# Optionally, you can turn it on using a schedule for regular testing.
 on:
   pull_request:
-    paths-ignore:
-      - "README.md"
   push:
-    paths-ignore:
-      - "README.md"
+    branches:
+      - main
 
 # Testing only needs permissions to read the repository contents.
 permissions:
@@ -81,3 +77,12 @@ jobs:
           TF_ACC: "1"
         run: go test -v -cover ./internal/provider/
         timeout-minutes: 10
+
+  ci-success:
+    name: CI Success
+    if: always()
+    needs: [build, generate, test]
+    runs-on: ubuntu-latest
+    steps:
+      - if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
+        run: exit 1
