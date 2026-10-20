@@ -7,6 +7,7 @@ import (
 	"github.com/google/go-containerregistry/pkg/name"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -47,7 +48,15 @@ func (r *ContainerregistryResource) Schema(ctx context.Context, req resource.Sch
 				MarkdownDescription: "Image tarball thing.",
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.RequiresReplaceIf(
+						func(ctx context.Context, req planmodifier.StringRequest, resp *stringplanmodifier.RequiresReplaceIfFuncResponse) {
+							var hash types.String
+							resp.Diagnostics.Append(req.Plan.GetAttribute(ctx, path.Root("image_tarball_hash"), &hash)...)
+							resp.RequiresReplace = hash.IsNull() || hash.IsUnknown()
+						},
+						"Replace image when image_tarball_hash has changed, or path changes if hash is unset",
+						"Replace image when `image_tarball_hash` has changed, or path changes if hash is unset",
+					),
 				},
 			},
 			"image_tarball_hash": schema.StringAttribute{
